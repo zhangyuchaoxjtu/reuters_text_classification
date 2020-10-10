@@ -1,0 +1,29 @@
+expose:
+  type: ingress
+  tls:
+    enabled: true
+    secretName: harbor-secret
+  ingress:
+    hosts:
+      core: core.harbor.domain
+      notary: notary.harbor.domain
+    annotations:
+      ingress.kubernetes.io/ssl-redirect: "true"
+      ingress.kubernetes.io/proxy-body-size: "0"
+
+externalURL: https://core.harbor.domain
+
+persistence:
+  enabled: true
+  resourcePolicy: "keep"
+  persistentVolumeClaim:
+    registry:
+      storageClass: "nfs-client"
+    chartmuseum:
+      storageClass: "nfs-client"
+    jobservice:
+      storageClass: "nfs-client"
+    database:
+      storageClass: "nfs-client"
+    redis:
+      storageClass: "nfs-client"
